@@ -184,15 +184,20 @@ def game_board(game_word, correct_guesses, incorrect_guesses):
     the user.
     """
     print(HANGMAN[len(incorrect_guesses)])
+    print()
     print(f'Incorrectly guessed letters: {incorrect_guesses}\n')
+    # print('missed letters:', end= ' ')
+    # for letter in incorrect_guesses:
+    #     print(letter, end=' ')
+    # print()
 
-def hidden_answer():
-    """
-    Display dashes corresponding with the number of letters
-    in the word by iterating through with a for loop. 
-    Updates after each user guess inserting correctly guessed
-    letters obtained from the correct_guesses variable.
-    """
+# def hidden_answer():
+#     """
+#     Display dashes corresponding with the number of letters
+#     in the word by iterating through with a for loop. 
+#     Updates after each user guess inserting correctly guessed
+#     letters obtained from the correct_guesses variable.
+#     """
     dashes = len(game_word) * '-'
 
     for i, x in enumerate(game_word):
@@ -216,23 +221,34 @@ def user_guess(guessed_letters):
         print()
         guess = input()
         guess = guess.lower()
-        if len(guess) == 1:
-            if guess in guessed_letters:
-                print(f'You guessed {guess}, you already guessed that. Try again')
-            elif guess not in 'abcdefghijklmnopqrstuvwxyz':
-                print('Only guesses in the alphabet accepted.. Try again')
-            else:
-                return guess
-        elif len(guess) == len(game_word):
-            if guess == game_word:
-                print(f'{guess} is the word! Well done!')
-                break
-            else:
-                print('That was incorrect.. Try again')
+        if len(guess) != 1:
+            print('please enter single letter')
+        elif guess in guessed_letters:
+            print('youve already guessed that letter')
+        elif guess not in 'abcdefghijklmnopqrstuvwxyz':
+            print('please enter a letter!')
         else:
             return guess
+        # if len(guess) == 1:
+        #     if guess in guessed_letters:
+        #         print(f'You guessed {guess}, you already guessed that. Try again')
+        #     elif guess not in 'abcdefghijklmnopqrstuvwxyz':
+        #         print('Only guesses in the alphabet accepted.. Try again')
+        #     else:
+        #         return guess
+        # elif len(guess) == len(game_word):
+        #     if guess == game_word:
+        #         print(f'{guess} is the word! Well done!')
+        #         break
+        #     else:
+        #         print('That was incorrect.. Try again')
+        # else:
+        #     return guess
 
 def play_again():
+    """
+    would user like to play again
+    """
     print('do you want to play again? (yes or no)')
     return input().lower().startswith('y')
 
@@ -246,7 +262,7 @@ game_is_done = False
 
 while True:
     game_board(game_word, correct_guesses, incorrect_guesses)
-    hidden_answer()
+    # hidden_answer()
 
     guess = str(user_guess(incorrect_guesses + correct_guesses))
 
